@@ -6,6 +6,25 @@
     <title>學習歷程檔案</title>
 
     <style>
+        .qr-code {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.qr-code img {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.qr-code p {
+    margin-top: 10px;
+    color: #555;
+    font-size: 14px;
+}
+
         body {
             margin: 0;
             font-family: "Noto Sans TC", sans-serif;
@@ -33,7 +52,11 @@
         .container {
             max-width: 900px;
             margin: 40px auto;
-            padding: 20px;
+            padding: 20px;<div class="qr-code">
+    <img src="/static/images/qr_code.jpg" alt="QR Code">
+    <p>掃描 QR Code 查看學習歷程</p>
+</div>
+
         }
 
         .card-grid {
