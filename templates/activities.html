@@ -3,45 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask a Question</title>
+    <title>課外活動｜我的自我介紹</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
+
+        body {
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
+        }
+
         header {
-            background-color: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50, #2e8b57);
             color: white;
-            padding: 10px;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 18px;
+        }
+
+        nav {
+            background: white;
+            text-align: center;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #4CAF50;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 35px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             text-align: center;
         }
-        section {
-            margin: 20px;
+
+        .intro h2 {
+            color: #2e8b57;
+            margin-bottom: 15px;
         }
-        .form-box {
-            background-color: white;
+
+        .activities {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card h3 {
+            color: #2e8b57;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #555;
+        }
+
+        .back-button {
+            display: block;
+            width: 160px;
+            margin: 40px auto;
+            padding: 12px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #2e8b57;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        /* 手機版 */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 32px;
+            }
+
+            .activities {
+                grid-template-columns: 1fr;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 8px;
+            }
         }
     </style>
 </head>
+
 <body>
+
     <header>
-        <h1>課外活動</h1>
+        <h1>我的課外活動</h1>
+        <p>在學習之外，探索興趣、累積經驗</p>
     </header>
-    <section>
-        <div class="form-box">
-            <form action="/activities" method="post">
-                <label for="question">你的問題:</label><br>
-                <input type="text" id="question" name="question" value="{{ question }}"><br><br>
-                <label for="answer">答案:</label><br>
-                <input type="text" id="answer" name="answer" readonly value="{{ answer }}"><br><br>
-                <input type="submit" value="送出">
-                <input type="button" value="回首頁" onclick="window.location.href='/'">
-            </form>
-        </div>
-    </section>
+
+    <nav>
+        <a href="/">首頁</a>
+        <a href="/about">關於我</a>
+        <a href="/activities">課外活動</a>
+        <a href="/projects">我的作品</a>
+    </nav>
+
+    <main class="container">
+
+        <section class="intro">
+            <h2>豐富我的高中生活</h2>
+            <p>
+                高中三年除了課業學習之外，我也積極參與各種課外活動。
+                透過社團、運動以及校園活動，我學習到團隊合作、
+                時間管理與與人溝通的重要性，也留下許多珍貴的回憶。
+            </p>
+        </section>
+
+        <section class="activities">
+
+            <!-- 活動一 -->
+            <div class="card">
+                <img src="images/club.jpg" alt="社團活動">
+                <div class="card-content">
+                    <h3>🎨 社團活動</h3>
+                    <p>
+                        在社團活動中，我和同學一起完成各種任務，
+                        學習如何分工合作，也培養自己的興趣與創意。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 活動二 -->
+            <div class="card">
+                <img src="images/sports.jpg" alt="體育活動">
+                <div class="card-content">
+                    <h3>🏀 體育活動</h3>
+                    <p>
+                        我喜歡參與體育活動，例如籃球與羽球。
+                        運動不但能讓我保持健康，也讓我了解團隊合作的重要性。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 活動三 -->
+            <div class="card">
+                <img src="images/volunteer.jpg" alt="志工活動">
+                <div class="card-content">
+                    <h3>🤝 志工服務</h3>
+                    <p>
+                        透過志工服務，我有機會幫助其他人，
+                        也學習到責任感與關懷他人的重要性。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 活動四 -->
+            <div class="card">
+                <img src="images/school.jpg" alt="校園活動">
+                <div class="card-content">
+                    <h3>🎉 校園活動</h3>
+                    <p>
+                        我也參與校慶、成果發表與其他校園活動。
+                        這些經驗讓我的高中生活更加充實，也留下許多美好回憶。
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <a href="/" class="back-button">← 回到首頁</a>
+
+    </main>
+
+    <footer>
+        <p>© 2026 我的高中自我介紹網站</p>
+    </footer>
+
 </body>
 </html>
