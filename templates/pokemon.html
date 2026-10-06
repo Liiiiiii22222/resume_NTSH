@@ -1,60 +1,255 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>寶可夢</title>
+<!DOCTYPE html> <html lang="zh-TW"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>寶可夢介紹</title>
+<style>
+    body {
+        margin: 0;
+        font-family: "Noto Sans TC", sans-serif;
+        background: linear-gradient(135deg, #fff8e1, #e3f2fd);
+        color: #333;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: "Noto Sans TC", sans-serif;
-            background: linear-gradient(135deg, #fff3e0, #ffffff);
-        }
+    header {
+        background: linear-gradient(135deg, #e53935, #ff7043);
+        color: white;
+        text-align: center;
+        padding: 50px 20px;
+    }
 
-        header {
-            background-color: #e53935;
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
+    header h1 {
+        margin: 0;
+        font-size: 36px;
+    }
 
+    header p {
+        margin-top: 12px;
+        font-size: 17px;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .back {
+        display: inline-block;
+        margin-bottom: 25px;
+        color: #e53935;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .intro {
+        background: white;
+        padding: 30px;
+        border-radius: 18px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
+    }
+
+    .intro h2 {
+        color: #e53935;
+        margin-top: 0;
+    }
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+        color: #e53935;
+        margin-top: 0;
+    }
+
+    .pokemon {
+        text-align: center;
+    }
+
+    .pokemon .emoji {
+        font-size: 70px;
+        margin-bottom: 10px;
+    }
+
+    .pokemon h3 {
+        margin-bottom: 8px;
+    }
+
+    .type {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        background: #ffcc80;
+        color: #6d4c41;
+        font-size: 14px;
+    }
+
+    .info {
+        line-height: 1.8;
+    }
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        color: #777;
+    }
+
+    @media (max-width: 600px) {
         header h1 {
-            margin: 0;
+            font-size: 28px;
         }
 
         .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-            text-align: center;
+            padding: 15px;
         }
+    }
+</style>
 
-        .back {
-            display: inline-block;
-            margin-bottom: 30px;
-            color: #e53935;
-            text-decoration: none;
-            font-weight: bold;
-        }
-    </style>
-</head>
+</head> <body> <header> <h1>🎮 寶可夢世界</h1> <p>認識寶可夢、屬性與牠們的特色</p> </header> <div class="container">
+<a href="/" class="back">← 回到學習歷程首頁</a>
 
-<body>
+<div class="intro">
+    <h2>🌟 什麼是寶可夢？</h2>
 
-<header>
-    <h1>🎮 寶可夢</h1>
-    <p>寶可夢資料與介紹</p>
-</header>
+    <p class="info">
+        寶可夢是日本創造的知名遊戲與娛樂作品系列。
+        玩家可以在遊戲世界中探索不同地區，遇見各式各樣的寶可夢，
+        並透過捕捉、培育與訓練，與寶可夢一起進行冒險。
+    </p>
 
-<div class="container">
+    <p class="info">
+        不同寶可夢擁有不同的外型、能力與屬性。
+        有些寶可夢可以進化成更強大的型態，
+        因此「探索、培育與成長」也是寶可夢系列的重要特色。
+    </p>
+</div>
 
-    <a href="/" class="back">← 回到首頁</a>
+<div class="card-grid">
 
-    <h2>歡迎來到寶可夢專區！</h2>
-    <p>這裡可以放置寶可夢搜尋、圖鑑、屬性等功能。</p>
+    <div class="card">
+        <h3>⚡ 寶可夢屬性</h3>
+        <p>
+            寶可夢具有不同的屬性，例如火、水、草、電、冰、
+            超能力、惡、鋼等。
+        </p>
+        <p>
+            不同屬性之間存在相互克制的關係，
+            因此在對戰時選擇適合的寶可夢非常重要。
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>🔄 寶可夢進化</h3>
+        <p>
+            部分寶可夢可以透過升級、使用道具或其他特殊條件進化。
+        </p>
+        <p>
+            進化後通常會改變外型，並可能獲得更高的能力，
+            讓寶可夢變得更加強大。
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>⚔️ 寶可夢對戰</h3>
+        <p>
+            訓練家可以讓寶可夢參加對戰，
+            運用招式、屬性相剋與能力來擊敗對手。
+        </p>
+        <p>
+            合理組成隊伍與選擇招式，是對戰的重要策略。
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>🌍 探索世界</h3>
+        <p>
+            寶可夢系列擁有許多不同的地區，
+            每個地區都有獨特的環境、城市、人物與寶可夢。
+        </p>
+        <p>
+            玩家可以在冒險過程中探索新的地方並發現新的寶可夢。
+        </p>
+    </div>
 
 </div>
 
-</body>
-</html>
+<br>
+
+<h2 style="text-align:center; color:#e53935;">
+    ⭐ 經典寶可夢
+</h2>
+
+<div class="card-grid">
+
+    <div class="card pokemon">
+        <div class="emoji">⚡</div>
+        <h3>皮卡丘</h3>
+        <span class="type">電屬性</span>
+        <p>
+            皮卡丘是非常具有代表性的寶可夢，
+            最大特色是黃色的外表與紅色臉頰。
+        </p>
+    </div>
+
+    <div class="card pokemon">
+        <div class="emoji">🔥</div>
+        <h3>小火龍</h3>
+        <span class="type">火屬性</span>
+        <p>
+            小火龍是一隻外型像小型蜥蜴的寶可夢，
+            尾巴上的火焰是牠的重要特徵。
+        </p>
+    </div>
+
+    <div class="card pokemon">
+        <div class="emoji">💧</div>
+        <h3>傑尼龜</h3>
+        <span class="type">水屬性</span>
+        <p>
+            傑尼龜外型像小烏龜，
+            背上的龜殼可以幫助牠保護自己。
+        </p>
+    </div>
+
+    <div class="card pokemon">
+        <div class="emoji">🌱</div>
+        <h3>妙蛙種子</h3>
+        <span class="type">草／毒屬性</span>
+        <p>
+            妙蛙種子背上有一顆植物種子，
+            可以透過成長逐漸進化成更強大的型態。
+        </p>
+    </div>
+
+</div>
+
+<div class="intro" style="margin-top:30px;">
+    <h2>📚 我的寶可夢學習心得</h2>
+
+    <p class="info">
+        透過製作寶可夢介紹網頁，我學習到如何使用 HTML
+        建立網頁結構，以及使用 CSS 設計卡片、顏色、
+        陰影與響應式版面。
+    </p>
+
+    <p class="info">
+        同時，我也透過整理寶可夢資料，
+        練習將大量資訊分類與整理，
+        讓使用者可以更容易閱讀與理解。
+    </p>
+</div>
+
+</div> <footer> © 2026 李垣廣 學習歷程檔案｜寶可夢專區 </footer> </body> </html>
