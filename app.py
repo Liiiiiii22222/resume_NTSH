@@ -57,6 +57,10 @@ def competition():
 @app.route('/ask', methods=['GET', 'POST'])
 def ask():
 
+    # 中韓、中日翻譯共用路由
+@app.route('/ask', methods=['GET', 'POST'])
+def ask():
+
     if request.method == 'POST':
 
         # 讀取學生輸入的問題
@@ -90,14 +94,13 @@ def ask():
             language=language
         )
 
-      # GET 時給空白欄位
+    # GET 時給空白欄位
     return render_template(
         'ask.html',
         question="",
         answer="",
         language="ko"
     )
-    return render_template('ask.html', question="", answer="")
 
 
 # 課外活動（保留原本功能）
