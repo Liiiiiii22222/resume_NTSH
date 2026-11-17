@@ -1,16 +1,23 @@
 
 from flask import Flask, request, render_template
 import requests
+import re
 
 app = Flask(__name__)
 
-# 建立中韓翻譯題庫
+# ==============================
+# 中韓翻譯題庫
+# ==============================
+
 zh_ko_dict = {
     "你好": "안녕하세요",
     "안녕하세요": "你好",
     "謝謝": "감사합니다",
+    "감사합니다": "謝謝",
     "對不起": "죄송합니다",
+    "죄송합니다": "對不起",
     "早安": "좋은 아침",
+    "좋은 아침": "早安",
     "晚安": "안녕히 주무세요",
     "老師": "선생님",
     "學生": "학생",
@@ -19,7 +26,10 @@ zh_ko_dict = {
     "愛": "사랑"
 }
 
-# 建立中日翻譯題庫
+# ==============================
+# 中日翻譯題庫
+# ==============================
+
 zh_jp_dict = {
     "你好": "こんにちは",
     "こんにちは": "你好",
@@ -43,34 +53,42 @@ zh_jp_dict = {
 }
 
 
+# ==============================
+# 首頁
+# ==============================
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
+# ==============================
+# 競賽
+# ==============================
 
 @app.route('/competition')
 def competition():
     return render_template('competition.html')
 
 
-# 中韓、中日翻譯共用路由
+# ==============================
+# 中韓、中日翻譯
+# ==============================
+
 @app.route('/ask', methods=['GET', 'POST'])
 def ask():
 
     if request.method == 'POST':
 
-        # 讀取學生輸入的問題
-        question = request.form.get('question', '').strip()
+        question = request.form.get(
+            'question', ''
+        ).strip()
 
-        # 讀取選擇的語言
-        language = request.form.get('language', 'ko')
+        language = request.form.get(
+            'language', 'ko'
+        )
 
-        # 根據語言選擇題庫
-        if language == 'ko':
-            dictionary = zh_ko_dict
-            language_name = "韓文"
-
-        elif language == 'jp':
+        if language == 'jp':
             dictionary = zh_jp_dict
             language_name = "日文"
 
@@ -79,13 +97,15 @@ def ask():
             dictionary = zh_ko_dict
             language_name = "韓文"
 
-        # 查詢答案
-        answer = dictionary.get(
-            question,
-            f"抱歉，我目前沒有這個詞的{language_name}對應。"
-        )
+        if not question:
+            answer = "請輸入想要翻譯的文字。"
 
-        # 回傳答案
+        else:
+            answer = dictionary.get(
+                question,
+                f"抱歉，我目前沒有這個詞的{language_name}對應。"
+            )
+
         return render_template(
             'ask.html',
             question=question,
@@ -93,7 +113,6 @@ def ask():
             language=language
         )
 
-    # GET 時給空白欄位
     return render_template(
         'ask.html',
         question="",
@@ -102,52 +121,110 @@ def ask():
     )
 
 
+# ==============================
 # 課外活動
+# ==============================
+
 @app.route('/activities', methods=['GET', 'POST'])
 def activities():
-    if request.method == 'POST':
-        question = request.form.get('question', '').strip()
 
-        answer1 = "抱歉，我目前沒有這個詞的韓文對應。"
+    if request.method == 'POST':
+
+        question = request.form.get(
+            'question', ''
+        ).strip()
+
+        if not question:
+            answer = "請輸入問題。"
+        else:
+            answer = "抱歉，我目前沒有這個詞的韓文對應。"
 
         return render_template(
             'activities.html',
             question=question,
-            answer=answer1
+            answer=answer
         )
 
-    return render_template('activities.html', question="", answer="")
+    return render_template(
+        'activities.html',
+        question="",
+        answer=""
+    )
 
 
+# ==============================
 # 股票查詢
+# ==============================
+
 @app.route('/stock', methods=['GET', 'POST'])
 def stock():
+
     if request.method == 'POST':
-        question = request.form.get('question', '').strip()
+
+        question = request.form.get(
+            'question', ''
+        ).strip()
 
         if not question:
+
             answer = "請輸入股票代號，例如 2330。"
+
+        elif not re.fullmatch(r'\d{4,6}', question):
+
+            answer = "股票代號格式錯誤，請輸入正確的數字代號。"
+
         else:
+
             url = (
                 "https://www.twse.com.tw/exchangeReport/"
                 f"STOCK_DAY?response=json&stockNo={question}"
             )
 
             try:
-                res = requests.get(url, timeout=10)
-                res.raise_for_status()
-                data = res.json()
 
-                if data.get("stat") == "OK" and data.get("data"):
-                    answer = data["data"][-1][6]
-                    answer = f"最近交易日收盤價：{answer} 元"
+                response = requests.get(
+                    url,
+                    timeout=10,
+                    headers={
+                        "User-Agent": "Mozilla/5.0"
+                    }
+                )
+
+                response.raise_for_status()
+
+                data = response.json()
+
+                if (
+                    data.get("stat") == "OK"
+                    and data.get("data")
+                    and data.get("data")[-1]
+                    and len(data["data"][-1]) > 6
+                ):
+
+                    latest_data = data["data"][-1]
+
+                    closing_price = latest_data[6]
+
+                    answer = (
+                        f"最近交易日：{latest_data[0]}\n"
+                        f"收盤價：{closing_price} 元"
+                    )
+
                 else:
-                    answer = "查無資料，請確認股票代號或日期。"
+
+                    answer = "查無資料，請確認股票代號或交易日期。"
+
+            except requests.Timeout:
+
+                answer = "股票查詢逾時，請稍後再試。"
 
             except requests.RequestException:
+
                 answer = "目前無法連接股價查詢服務，請稍後再試。"
-            except (ValueError, KeyError, IndexError):
-                answer = "資料格式異常，請稍後再試。"
+
+            except (ValueError, KeyError, IndexError, TypeError):
+
+                answer = "股票資料格式異常，請稍後再試。"
 
         return render_template(
             'stock.html',
@@ -155,34 +232,65 @@ def stock():
             answer=answer
         )
 
-    return render_template('stock.html', question="", answer="")
+    return render_template(
+        'stock.html',
+        question="",
+        answer=""
+    )
 
+
+# ==============================
+# 領導相關
+# ==============================
 
 @app.route('/leadership')
 def leadership():
     return render_template('leadership.html')
 
 
+# ==============================
+# 社團
+# ==============================
+
 @app.route('/club')
 def club():
     return render_template('club.html')
 
+
+# ==============================
+# 選修課程
+# ==============================
 
 @app.route('/electives')
 def electives():
     return render_template('electives.html')
 
 
+# ==============================
+# AI
+# ==============================
+
 @app.route('/ai')
 def ai():
     return render_template('ai.html')
 
+
+# ==============================
+# Pokémon
+# ==============================
 
 @app.route('/pokemon')
 def pokemon():
     return render_template('pokemon.html')
 
 
+# ==============================
 # 啟動 Flask
+# ==============================
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(
+        host='127.0.0.1',
+        port=5000,
+        debug=True
+    )
